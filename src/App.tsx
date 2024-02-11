@@ -22,11 +22,6 @@ function App() {
       <Header />
       <section className="section has-background-warning-light">
         <div className="container">
-          {/* <div className="block has-text-right">
-            <button className="button is-warning is-inverted is-outlined">
-              ログイン
-            </button>
-          </div> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user/:userId" element={<User />} />
