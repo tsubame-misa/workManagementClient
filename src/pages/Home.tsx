@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import UserProjects from "../components/UserProjects";
 
 function Home() {
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState<userProject[]>([]);
   useEffect(() => {
     (async () => {
       const response = await fetch("/.netlify/functions/users");
@@ -10,9 +11,22 @@ function Home() {
     })();
   }, []);
 
-  console.log(userData);
+  //   console.log("userData", userData);
 
-  return <div>home</div>;
+  return (
+    <div>
+      {userData.map((d) => {
+        // console.log(d.user);
+        return (
+          <UserProjects
+            user={d.user}
+            projects={d.projects}
+            key={d.user.user_id}
+          />
+        );
+      })}
+    </div>
+  );
 }
 
 export default Home;

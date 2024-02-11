@@ -2,7 +2,8 @@ type user = {
     user_id: string,
     student_id?: string,
     user_name?: string,
-    name?:string,
+    name?: string,
+    icon?: string,
 }
 
 type project = {
@@ -15,5 +16,5 @@ type project = {
 
 type userProject = {
     user: user,
-    projects: project,
+    projects: project[],
 }

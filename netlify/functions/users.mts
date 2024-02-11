@@ -29,7 +29,7 @@ export default async () => {
         );
         const data = await response.json();
         
-        const projects:project = data.projects.sort((a, b) => b.total_seconds - a.total_seconds);
+        const projects:project[] = data.projects.sort((a, b) => b.total_seconds - a.total_seconds);
         return {
             user,
             projects,
