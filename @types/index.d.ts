@@ -18,3 +18,14 @@ type userProject = {
     user: user,
     projects: project[],
 }
+
+type bar = {
+    name: string;
+    x: number,
+    y: number,
+    w: number,
+    seconds: number,
+    color: string,
+    label: string;
+  };
+  

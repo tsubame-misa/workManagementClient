@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import StackedBarChart from "./charts/StackedBarChart";
+import { convertTime } from "../worker/worker";
 
 type Props = {
   user: user;
@@ -7,19 +9,13 @@ type Props = {
 
 const UserProjects = ({ user, projects }: Props) => {
   const [totalTime, setTotalTime] = useState<number>(0);
-  const [barData, setBarData] = useState([]);
 
   useEffect(() => {
     const total = projects.reduce(function (sum, p) {
       return sum + p.total_seconds;
     }, 0);
     setTotalTime(total);
-  });
-
-  function convertTime(seconds: number): string {
-    const m = seconds / 60;
-    return Math.floor(m / 60) + " h " + Math.floor(m % 60) + " m";
-  }
+  }, []);
 
   return (
     <div style={{ padding: "10px" }}>
@@ -30,13 +26,7 @@ const UserProjects = ({ user, projects }: Props) => {
         />
       </div>
       <div>{convertTime(totalTime)}</div>
-      {projects.map((p) => {
-        return (
-          <div>
-            {p.name}, {p.total_seconds}
-          </div>
-        );
-      })}
+      <StackedBarChart projects={projects} totalTime={totalTime} />
     </div>
   );
 };
