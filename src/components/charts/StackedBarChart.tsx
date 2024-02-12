@@ -14,9 +14,8 @@ const StackedBarChart = ({ projects, totalTime }: Props) => {
   const [showData, setShowData] = useState<bar>();
   const [toolTipPos, seToolTipPos] = useState({ x: 0, y: 0 });
 
-  const margin = { top: 10, right: 30, bottom: 20, left: 50 };
-  const width = 460 - margin.left - margin.right;
-  const height = 50 - margin.top - margin.bottom;
+  const width = 500;
+  const height = 20;
 
   const yScale = d3.scaleLinear().domain([0, totalTime]).range([0, width]);
   const colorScale = d3
@@ -78,35 +77,34 @@ const StackedBarChart = ({ projects, totalTime }: Props) => {
   };
 
   const handleMousemove = function (e) {
-    seToolTipPos({ x: e.clientX, y: e.clientY });
+    //TODO:位置調整
+    seToolTipPos({ x: e.clientX - 100, y: e.clientY });
   };
   const HandleMouseleave = function () {
     setShowToolTip(false);
   };
 
   return (
-    <div id="bar_chart">
-      <svg viewBox={`${margin.left} ${margin.top} ${width} ${height}`}>
-        <g>
-          {data.map((d) => {
-            return (
-              <g key={d.name}>
-                <rect
-                  x={d.x}
-                  y="0"
-                  width={d.w}
-                  height="20"
-                  fill={d.color}
-                  onMouseOver={() => {
-                    handleMouseover(d);
-                  }}
-                  onMouseMove={handleMousemove}
-                  onMouseOut={HandleMouseleave}
-                />
-              </g>
-            );
-          })}
-        </g>
+    <div id="bar_chart" className="is-align-items-center">
+      <svg viewBox={`${0} ${0} ${width} ${height}`}>
+        {data.map((d) => {
+          return (
+            <g key={d.name}>
+              <rect
+                x={d.x}
+                y="0"
+                width={d.w}
+                height="20"
+                fill={d.color}
+                onMouseOver={() => {
+                  handleMouseover(d);
+                }}
+                onMouseMove={handleMousemove}
+                onMouseOut={HandleMouseleave}
+              />
+            </g>
+          );
+        })}
       </svg>
       {showToolTip && (
         <div id="tooltip" style={{ left: toolTipPos.x, top: -10 }}>

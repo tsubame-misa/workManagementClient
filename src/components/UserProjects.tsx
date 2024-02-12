@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StackedBarChart from "./charts/StackedBarChart";
 import { convertTime } from "../worker/worker";
+import "./UserProjects.css";
 
 type Props = {
   user: user;
@@ -18,15 +19,17 @@ const UserProjects = ({ user, projects }: Props) => {
   }, []);
 
   return (
-    <div style={{ padding: "10px" }}>
+    <div className="user_projects">
       <div>
         <img
           style={{ width: "50px" }}
           src={user.icon ? user.icon : "/vite.svg"}
         />
       </div>
-      <div>{convertTime(totalTime)}</div>
-      <StackedBarChart projects={projects} totalTime={totalTime} />
+      <div className="total_time">{convertTime(totalTime)}</div>
+      <div style={{ width: "100%" }}>
+        <StackedBarChart projects={projects} totalTime={totalTime} />
+      </div>
     </div>
   );
 };

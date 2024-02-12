@@ -6,10 +6,10 @@ import "bulma/css/bulma.css";
 
 function Header() {
   return (
-    <section className="hero is-warning">
+    <section className="hero header">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title">header</h1>
+          <h1 className="title has-text-white">header</h1>
         </div>
       </div>
     </section>
@@ -20,7 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <section className="section has-background-warning-light">
+      <section className="section">
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />

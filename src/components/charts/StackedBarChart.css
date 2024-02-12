@@ -9,5 +9,7 @@
     z-index: 40;
 }
 #bar_chart{
+    width: 100%;
     position: relative;
+    display: flex;
 }
