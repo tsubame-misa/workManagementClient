@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
 import { convertTime, sum } from "../../worker/worker";
@@ -82,6 +83,7 @@ const StackedBarChart = ({ user, projects }: Props) => {
     setShowData(d);
   };
 
+  // @ts-ignore
   const handleMousemove = function (e) {
     //TODO:位置調整
     seToolTipPos({ x: e.clientX - 100, y: e.clientY });

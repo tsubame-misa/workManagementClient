@@ -7,6 +7,7 @@ export default async () => {
   const response = await fetch(
     `https://tsubame.hasura.app/api/rest/work_management/users`,
     {
+      // @ts-ignore
       headers: {
         "x-hasura-admin-secret": process.env.HASURA,
       },
@@ -19,7 +20,8 @@ export default async () => {
     const userProjects: userProject[] = await Promise.all(users.map(async (user)=>{
         const response = await fetch(
             `https://tsubame.hasura.app/api/rest/work_management/user/projects`,
-            {
+          {
+              // @ts-ignore
               headers: {
                 "x-hasura-admin-secret": process.env.HASURA,
               },
@@ -29,7 +31,8 @@ export default async () => {
         );
         const data = await response.json();
         
-        const projects:project[] = data.projects.sort((a, b) => b.total_seconds - a.total_seconds);
+      const projects: project[]
+        = data.projects.sort((a: project, b: project) => b.total_seconds - a.total_seconds);
         return {
             user,
             projects,

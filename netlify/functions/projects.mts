@@ -1,10 +1,9 @@
 import { config } from "dotenv";
-// import { HandlerEvent } from "@netlify/functions";
-import type { Context } from "@netlify/functions"
+
 
 config();
 
-export default async (req: Request, context: Context) => {
+export default async (req: Request) => {
   console.log("req", req.body);
 
   // let body = {}
@@ -29,6 +28,7 @@ export default async (req: Request, context: Context) => {
     const response = await fetch(
       `https://tsubame.hasura.app/api/rest/work_management/users/projects/work`,
       {
+        // @ts-ignore
         headers: {
           "x-hasura-admin-secret": process.env.HASURA,
         },
@@ -37,6 +37,7 @@ export default async (req: Request, context: Context) => {
       }
     );
     const data = await response.json();
+    // @ts-ignore
     works[p.toString()] = data.works;
   }
 

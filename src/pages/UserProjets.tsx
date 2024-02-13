@@ -1,13 +1,11 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userDictState, workState } from "../atoms/user";
+import { useRecoilValue } from "recoil";
+import { userDictState } from "../atoms/user";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { convertTime, sum } from "../worker/worker";
 import UserHeader from "../components/UserHeader";
 import { useEffect, useState } from "react";
 
 function UserProjects() {
-  const navigate = useNavigate();
   //   const [userProject, setUserProject] = useRecoilState<projectDict>(workState);
   const [sortedProject, setSortedProject] = useState<project[]>([]);
 
