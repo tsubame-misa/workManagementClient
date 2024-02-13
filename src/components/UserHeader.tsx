@@ -4,11 +4,12 @@ import "./UserHeader.css";
 
 type Props = {
   user: user;
+  selectedTab: string;
 };
 
-const UserHeader = ({ user }: Props) => {
+const UserHeader = ({ user, selectedTab }: Props) => {
   const navigate = useNavigate();
-  const [active, setActive] = useState("pictures");
+  const [active, setActive] = useState(selectedTab);
 
   return (
     <div>
@@ -19,20 +20,20 @@ const UserHeader = ({ user }: Props) => {
 
       <div className="tabs is-centered">
         <ul>
-          <li className={active === "pictures" && "is-active"}>
+          <li className={active === "projects" && "is-active"}>
             <a
               onClick={() => {
-                setActive("pictures");
+                setActive("projects");
                 navigate(`/user/projects/${user.id}`);
               }}
             >
               Project
             </a>
           </li>
-          <li className={active === "music" && "is-active"}>
+          <li className={active === "trophy" && "is-active"}>
             <a
               onClick={() => {
-                setActive("music");
+                setActive("trophy");
                 navigate(`/user/trophy/${user.id}`);
               }}
             >

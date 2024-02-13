@@ -19,7 +19,7 @@ function UserProjects() {
 
   return (
     <div>
-      <UserHeader user={user} />
+      <UserHeader user={user} selectedTab="projects" />
       <div>project</div>
     </div>
   );

@@ -16,7 +16,7 @@ function UserTrophy() {
 
   return (
     <div>
-      <UserHeader user={user} />
+      <UserHeader user={user} selectedTab="trophy" />
       <div>trophy</div>
     </div>
   );
