@@ -4,18 +4,7 @@ import Project from "./pages/Project";
 import User from "./pages/User";
 import "bulma/css/bulma.css";
 import { RecoilRoot } from "recoil";
-
-function Header() {
-  return (
-    <section className="hero header">
-      <div className="hero-body">
-        <div className="container">
-          <h1 className="title has-text-white">header</h1>
-        </div>
-      </div>
-    </section>
-  );
-}
+import Header from "./components/Header";
 
 function App() {
   return (

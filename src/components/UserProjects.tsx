@@ -20,7 +20,10 @@ const UserProjects = ({ user, projects }: Props) => {
 
   return (
     <div className="user_projects">
-      <div className="user" onClick={() => navigate(`/user/${user.id}`)}>
+      <div
+        className="user"
+        onClick={() => navigate(`/user/projects/${user.id}`)}
+      >
         <img className="user_icon" src={user.icon ? user.icon : "/vite.svg"} />
         <div className="total_time">{convertTime(totalTime)}</div>
       </div>
