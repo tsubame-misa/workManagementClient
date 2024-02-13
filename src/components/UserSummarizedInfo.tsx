@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import StackedBarChart from "./charts/StackedBarChart";
 import { convertTime, sum } from "../worker/worker";
 import { useNavigate } from "react-router-dom";
-import "./UserProjects.css";
+import "./UserSummarizedInfo.css";
 
 type Props = {
   user: user;
   projects: project[];
 };
 
-const UserProjects = ({ user, projects }: Props) => {
+const UserSummarizedInfo = ({ user, projects }: Props) => {
   const navigate = useNavigate();
   const [totalTime, setTotalTime] = useState<number>(0);
 
@@ -35,4 +35,4 @@ const UserProjects = ({ user, projects }: Props) => {
   );
 };
 
-export default UserProjects;
+export default UserSummarizedInfo;

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import UserProjects from "../components/UserProjects";
+import UserSummarizedInfo from "../components/UserSummarizedInfo";
 import { useRecoilState } from "recoil";
 import { userDictState } from "../atoms/user";
 
@@ -22,7 +22,7 @@ function Home() {
     <div>
       {Object.values(userData).map((d) => {
         return (
-          <UserProjects
+          <UserSummarizedInfo
             user={d.user}
             projects={d.projects}
             key={d.user.user_id}
