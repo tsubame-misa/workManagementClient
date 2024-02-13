@@ -1,14 +1,17 @@
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
 import { convertTime, sum } from "../../worker/worker";
+import { useNavigate } from "react-router-dom";
 import "./StackedBarChart.css";
 
 type Props = {
+  user: user;
   projects: project[];
   totalTime: number;
 };
 
-const StackedBarChart = ({ projects, totalTime }: Props) => {
+const StackedBarChart = ({ user, projects, totalTime }: Props) => {
+  const navigate = useNavigate();
   const [data, setData] = useState<bar[]>([]);
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
   const [showData, setShowData] = useState<bar>();
@@ -29,6 +32,7 @@ const StackedBarChart = ({ projects, totalTime }: Props) => {
 
     const _data: bar[] = projects.map((p: project) => {
       return {
+        id: p.id,
         name: p.name,
         x: 0,
         y: 0,
@@ -57,6 +61,7 @@ const StackedBarChart = ({ projects, totalTime }: Props) => {
     const otherTime = sum(_delete.map((d) => d.seconds));
 
     remainData.push({
+      id: null,
       name: "その他",
       x:
         _data[filterdProjects.length - 1].x +
@@ -96,6 +101,11 @@ const StackedBarChart = ({ projects, totalTime }: Props) => {
                 width={d.w}
                 height="20"
                 fill={d.color}
+                onClick={() =>
+                  d.id
+                    ? navigate(`/project/${d.id}`)
+                    : navigate(`/user/${user.user_id}`)
+                }
                 onMouseOver={() => {
                   handleMouseover(d);
                 }}

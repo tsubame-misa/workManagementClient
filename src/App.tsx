@@ -25,10 +25,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user/:userId" element={<User />} />
-            <Route
-              path="/user/:userId/project/:projectId"
-              element={<Project />}
-            />
+            <Route path="/project/:projectId" element={<Project />} />
+            {/* <Route path="*" element={ <Notfound /> } /> */}
           </Routes>
         </div>
       </section>

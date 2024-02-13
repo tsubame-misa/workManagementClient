@@ -10,3 +10,14 @@
     display: flex;
     justify-content: center;
 }
+
+.user{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user_icon{
+    width: 50px;
+}

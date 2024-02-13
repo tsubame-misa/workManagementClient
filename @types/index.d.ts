@@ -20,6 +20,7 @@ type userProject = {
 }
 
 type bar = {
+    id:number|null,
     name: string;
     x: number,
     y: number,
