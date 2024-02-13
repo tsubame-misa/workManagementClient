@@ -106,7 +106,7 @@ const StackedBarChart = ({ user, projects }: Props) => {
                 onClick={() =>
                   d.id
                     ? navigate(`/project/${d.id}`)
-                    : navigate(`/user/${user.id}`)
+                    : navigate(`/user/projects/${user.id}`)
                 }
                 onMouseOver={() => {
                   handleMouseover(d);

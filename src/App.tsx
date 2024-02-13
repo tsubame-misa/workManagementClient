@@ -26,7 +26,8 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/user/:userId" element={<User />} />
+              <Route path="/user/projects/:userId" element={<User />} />
+              <Route path="/user/trophy/:userId" element={<User />} />
               <Route path="/project/:projectId" element={<Project />} />
               {/* <Route path="*" element={ <Notfound /> } /> */}
             </Routes>
