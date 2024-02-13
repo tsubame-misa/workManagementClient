@@ -1,0 +1,14 @@
+.user_header_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user_icon{
+    width: 80px;
+}
+
+.user_name{
+    padding: 8px;
+    font-size: 2rem;
+}
