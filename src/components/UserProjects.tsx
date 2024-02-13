@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import StackedBarChart from "./charts/StackedBarChart";
-import { convertTime } from "../worker/worker";
+import { convertTime, sum } from "../worker/worker";
 import { useNavigate } from "react-router-dom";
 import "./UserProjects.css";
 
@@ -14,9 +14,7 @@ const UserProjects = ({ user, projects }: Props) => {
   const [totalTime, setTotalTime] = useState<number>(0);
 
   useEffect(() => {
-    const total = projects.reduce(function (sum, p) {
-      return sum + p.total_seconds;
-    }, 0);
+    const total = sum(projects.map((p) => p.total_seconds));
     setTotalTime(total);
   }, []);
 
@@ -28,11 +26,7 @@ const UserProjects = ({ user, projects }: Props) => {
       </div>
 
       <div style={{ width: "100%" }}>
-        <StackedBarChart
-          user={user}
-          projects={projects}
-          totalTime={totalTime}
-        />
+        <StackedBarChart user={user} projects={projects} />
       </div>
     </div>
   );

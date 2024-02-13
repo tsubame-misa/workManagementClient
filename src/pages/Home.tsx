@@ -11,12 +11,9 @@ function Home() {
     })();
   }, []);
 
-  //   console.log("userData", userData);
-
   return (
     <div>
       {userData.map((d) => {
-        // console.log(d.user);
         return (
           <UserProjects
             user={d.user}

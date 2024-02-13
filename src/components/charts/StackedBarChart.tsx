@@ -7,10 +7,9 @@ import "./StackedBarChart.css";
 type Props = {
   user: user;
   projects: project[];
-  totalTime: number;
 };
 
-const StackedBarChart = ({ user, projects, totalTime }: Props) => {
+const StackedBarChart = ({ user, projects }: Props) => {
   const navigate = useNavigate();
   const [data, setData] = useState<bar[]>([]);
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
@@ -19,6 +18,8 @@ const StackedBarChart = ({ user, projects, totalTime }: Props) => {
 
   const width = 500;
   const height = 20;
+
+  const totalTime = sum(projects.map((p) => p.total_seconds));
 
   const yScale = d3.scaleLinear().domain([0, totalTime]).range([0, width]);
   const colorScale = d3
@@ -96,6 +97,7 @@ const StackedBarChart = ({ user, projects, totalTime }: Props) => {
           return (
             <g key={d.name}>
               <rect
+                style={{ cursor: "pointer" }}
                 x={d.x}
                 y="0"
                 width={d.w}
