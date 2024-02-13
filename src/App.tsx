@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Project from "./pages/Project";
 import User from "./pages/User";
 import "bulma/css/bulma.css";
+import { RecoilRoot } from "recoil";
 
 function Header() {
   return (
@@ -18,19 +19,21 @@ function Header() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <section className="section">
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/user/:userId" element={<User />} />
-            <Route path="/project/:projectId" element={<Project />} />
-            {/* <Route path="*" element={ <Notfound /> } /> */}
-          </Routes>
-        </div>
-      </section>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Header />
+        <section className="section">
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/user/:userId" element={<User />} />
+              <Route path="/project/:projectId" element={<Project />} />
+              {/* <Route path="*" element={ <Notfound /> } /> */}
+            </Routes>
+          </div>
+        </section>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 export default App;

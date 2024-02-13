@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import UserProjects from "../components/UserProjects";
+import { useRecoilState } from "recoil";
+import { userDictState } from "../atoms/user";
 
 function Home() {
-  const [userData, setUserData] = useState<userProject[]>([]);
+  const [userData, setUserData] = useRecoilState<userDict>(userDictState);
+
   useEffect(() => {
     (async () => {
       const response = await fetch("/.netlify/functions/users");
       const data = await response.json();
-      setUserData(data);
+      const userDict: userDict = {};
+      for (const d of data) {
+        userDict[d.user.id] = d;
+      }
+      setUserData(userDict);
     })();
   }, []);
 
   return (
     <div>
-      {userData.map((d) => {
+      {Object.values(userData).map((d) => {
         return (
           <UserProjects
             user={d.user}

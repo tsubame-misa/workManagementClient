@@ -1,4 +1,12 @@
+// type userAllInfo = {
+//     user: user;
+//     projects: project[]
+// }
+
+type userDict = { [name: string]: userProject };
+
 type user = {
+    id:number,
     user_id: string,
     student_id?: string,
     user_name?: string,
