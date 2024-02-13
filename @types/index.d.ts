@@ -3,7 +3,9 @@
 //     projects: project[]
 // }
 
-type userDict = { [name: string]: userProject };
+type userDict = { [id: string]: userProject };
+
+type projectDict = {[projectId:number]:project}
 
 type user = {
     id:number,
@@ -19,7 +21,15 @@ type project = {
     name: string,
     user_id: string,
     total_seconds: number,
-    working:boolean,
+    working: boolean,
+    works?: work[],
+}
+
+type work = {
+    id: number,
+    start_time: string,
+    end_time: string,
+    description:null,
 }
 
 type userProject = {

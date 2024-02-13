@@ -8,3 +8,9 @@ export const userDictState = atom({
   default: {},
   effects_UNSTABLE: [persistAtom],
 });
+
+export const workState = atom({
+  key: "workState",
+  default: {},
+  effects_UNSTABLE: [persistAtom],
+});
