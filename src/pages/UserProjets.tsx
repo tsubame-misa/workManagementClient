@@ -45,7 +45,7 @@ function UserProjects() {
     })();
   }, []);
 
-  //   console.log(userProject);
+  console.log(sortedProject);
 
   const totalTime = sum(projects.map((p) => p.total_seconds));
 
