@@ -1,28 +1,11 @@
+import { HandlerEvent } from "@netlify/functions";
 import { config } from "dotenv";
-
 
 config();
 
-export default async (req: Request) => {
-  console.log("req", req.body);
-
-  // let body = {}
-  // try {
-  //     body = JSON.parse(event.body)
-  //   } catch (e) {
-  //     // body = parse(event.body)
-  //     console.log("error", e);
-  // }
-
-  // console.log("body", body);
-
-  //   // Bail if email is missing
-  //   if (!body.projectsId) {
-  //       console.log("GETTTTT")
-  //       console.log(body.projectsId);
-  //   }
-
-  const projectIds = [55, 79, 78, 73];
+exports.handler = async function (event:HandlerEvent) {
+  const body = JSON.parse(event.body);
+  const projectIds = body.projectIds;
   const works = {};
   for (const p of projectIds) {
     const response = await fetch(
@@ -39,7 +22,14 @@ export default async (req: Request) => {
     const data = await response.json();
     // @ts-ignore
     works[p.toString()] = data.works;
-  }
+  }  
 
-  return new Response(JSON.stringify(works));
+  return {
+    headers: {
+        "content-type": "application/json",
+      },
+  statusCode: 200,
+
+  body: JSON.stringify(works),
+};
 };

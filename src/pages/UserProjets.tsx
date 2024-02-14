@@ -29,6 +29,8 @@ function UserProjects() {
       });
       const data = await response.json();
 
+      console.log("data", data);
+
       const sortedNewProjects = projects
         .map((p) => {
           return { ...p, works: data[p.id] };
