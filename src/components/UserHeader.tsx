@@ -20,6 +20,7 @@ const UserHeader = ({ user, selectedTab }: Props) => {
 
       <div className="tabs is-centered">
         <ul>
+          {/* @ts-ignore */}
           <li className={active === "projects" && "is-active"}>
             <a
               onClick={() => {
@@ -30,6 +31,7 @@ const UserHeader = ({ user, selectedTab }: Props) => {
               Project
             </a>
           </li>
+          {/* @ts-ignore */}
           <li className={active === "trophy" && "is-active"}>
             <a
               onClick={() => {
