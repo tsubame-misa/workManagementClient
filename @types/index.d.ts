@@ -1,8 +1,3 @@
-// type userAllInfo = {
-//     user: user;
-//     projects: project[]
-// }
-
 type userDict = { [id: string]: userProject };
 
 type projectDict = {[projectId:number]:project}
@@ -37,6 +32,7 @@ type userProject = {
     projects: project[],
 }
 
+//TODO:rename
 type bar = {
     id:number|null,
     name: string;
@@ -48,3 +44,9 @@ type bar = {
     label: string;
   };
   
+  //TODO:rename
+  type barData = {
+    id: number;
+    name: string;
+    total_seconds: number;
+  };

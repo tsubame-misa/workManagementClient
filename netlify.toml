@@ -1,4 +1,0 @@
-[[redirects]]
-from="/api/*"
-to="/.netlify/functions/projects"
-status=200

@@ -29,7 +29,7 @@ const UserSummarizedInfo = ({ user, projects }: Props) => {
       </div>
 
       <div style={{ width: "100%" }}>
-        <StackedBarChart user={user} projects={projects} />
+        <StackedBarChart user={user} barData={projects} />
       </div>
     </div>
   );

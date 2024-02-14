@@ -7,10 +7,10 @@ import "./StackedBarChart.css";
 
 type Props = {
   user: user;
-  projects: project[];
+  barData: barData[];
 };
 
-const StackedBarChart = ({ user, projects }: Props) => {
+const StackedBarChart = ({ user, barData }: Props) => {
   const navigate = useNavigate();
   const [data, setData] = useState<bar[]>([]);
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
@@ -20,27 +20,43 @@ const StackedBarChart = ({ user, projects }: Props) => {
   const width = 500;
   const height = 20;
 
-  const totalTime = sum(projects.map((p) => p.total_seconds));
+  const totalTime = sum(barData.map((p) => p.total_seconds));
 
   const yScale = d3.scaleLinear().domain([0, totalTime]).range([0, width]);
-  const colorScale = d3
-    .scaleOrdinal(d3.schemeSet3)
-    .domain(projects.map((p) => p.id));
+  const colorScale = d3.scaleOrdinal(d3.schemeSet3);
 
   useEffect(() => {
-    const filterdProjects = projects.filter(
-      (p) => p.total_seconds > totalTime / 10
+    // 同じ名前のタスクはまとめる
+    const mergedDataDict: { [name: string]: barData } = {};
+    for (const d of barData) {
+      if (d.name in mergedDataDict) {
+        mergedDataDict[d.name].total_seconds += d.total_seconds;
+      } else {
+        mergedDataDict[d.name] = {
+          ...d,
+        };
+      }
+    }
+
+    const mergedData: barData[] = Object.values(mergedDataDict).sort(
+      (a, b) => b.total_seconds - a.total_seconds
     );
 
-    const _data: bar[] = projects.map((p: project) => {
+    const filterdProjects = mergedData.filter(
+      (p) => p.total_seconds > totalTime / 60
+    );
+
+    // console.log("mergedData", mergedData, "filterdProjects", filterdProjects);
+
+    const _data: bar[] = mergedData.map((p: barData, index) => {
       return {
-        id: p.id,
+        id: index,
         name: p.name,
         x: 0,
         y: 0,
         w: yScale(p.total_seconds),
         seconds: p.total_seconds,
-        color: colorScale(p.id),
+        color: colorScale(index),
         label: convertTime(p.total_seconds),
       };
     });
@@ -49,18 +65,20 @@ const StackedBarChart = ({ user, projects }: Props) => {
       _data[i].x = _data[i - 1].x + _data[i - 1].w;
     }
 
-    if (projects.length - filterdProjects.length < 1) {
+    if (mergedData.length - filterdProjects.length < 1) {
       setData(_data);
       return;
     }
 
     // その他で括りたい場合
     const remainData = _data.slice(0, filterdProjects.length);
-    const _delete = _data.slice(
-      projects.length - filterdProjects.length,
-      projects.length
-    );
-    const otherTime = sum(_delete.map((d) => d.seconds));
+    // const _delete = _data.slice(
+    //   mergedData.length - filterdProjects.length,
+    //   mergedData.length
+    // );
+
+    // console.log("_delete", _delete);
+    const otherTime = totalTime - sum(remainData.map((d) => d.seconds));
 
     remainData.push({
       id: null,
@@ -76,7 +94,9 @@ const StackedBarChart = ({ user, projects }: Props) => {
     });
 
     setData(remainData);
-  }, [projects]);
+  }, [barData]);
+
+  console.log("data", data);
 
   const handleMouseover = function (d: bar) {
     setShowToolTip(true);
@@ -86,7 +106,7 @@ const StackedBarChart = ({ user, projects }: Props) => {
   // @ts-ignore
   const handleMousemove = function (e) {
     //TODO:位置調整
-    seToolTipPos({ x: e.clientX - 100, y: e.clientY });
+    seToolTipPos({ x: e.clientX, y: e.clientY - 50 });
   };
   const HandleMouseleave = function () {
     setShowToolTip(false);
@@ -97,7 +117,7 @@ const StackedBarChart = ({ user, projects }: Props) => {
       <svg viewBox={`${0} ${0} ${width} ${height}`}>
         {data.map((d) => {
           return (
-            <g key={d.name}>
+            <g key={d.id}>
               <rect
                 style={{ cursor: "pointer" }}
                 x={d.x}
