@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./UserHeader.css";
+import UserIcon from "./UserIcon";
 
 type Props = {
   user: user;
@@ -14,7 +15,9 @@ const UserHeader = ({ user, selectedTab }: Props) => {
   return (
     <div>
       <div className="user_header_info section pt-0">
-        <img className="user_icon" src={user.icon ? user.icon : "/vite.svg"} />
+        <div style={{ width: "80px" }}>
+          <UserIcon user={user} />
+        </div>
         <div className="user_name">{user.user_name}</div>
       </div>
 

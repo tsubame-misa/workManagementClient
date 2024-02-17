@@ -3,7 +3,8 @@ import StackedBarChart from "./charts/StackedBarChart";
 import { convertTime, sum } from "../worker/worker";
 import { useNavigate } from "react-router-dom";
 import "./UserSummarizedInfo.css";
-import Icon from "./Icon";
+import DefaultIcon from "./DefaultIcon";
+import UserIcon from "./UserIcon";
 
 type Props = {
   user: user;
@@ -25,15 +26,9 @@ const UserSummarizedInfo = ({ user, projects }: Props) => {
         className="user"
         onClick={() => navigate(`/user/projects/${user.id}`)}
       >
-        {user.icon ? (
-          <div className="user_icon">
-            <img src={user.icon} />
-          </div>
-        ) : (
-          <div className="user_icon">
-            <Icon userName={user.user_id} />
-          </div>
-        )}
+        <div style={{ width: "50px" }}>
+          <UserIcon user={user} />
+        </div>
 
         <div className="total_time">{convertTime(totalTime)}</div>
       </div>

@@ -2,9 +2,9 @@ type Props = {
   userName: string;
 };
 
-const Icon = ({ userName }: Props) => {
+const DefaultIcon = ({ userName }: Props) => {
   return (
-    <div className="p-2">
+    <div>
       <svg viewBox={`${0} ${0} ${50} ${50}`}>
         <circle cx="25" cy="25" r="25" fill="#AAAAAA" />
         <text
@@ -23,4 +23,4 @@ const Icon = ({ userName }: Props) => {
   );
 };
 
-export default Icon;
+export default DefaultIcon;
