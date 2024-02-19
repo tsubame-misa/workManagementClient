@@ -1,8 +1,9 @@
 import * as d3 from "d3";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { convertTime, sum } from "../../worker/worker";
 import { useNavigate } from "react-router-dom";
 import "./StackedBarChart.css";
+import { useGetElementProperty } from "../../worker/element";
 
 type Props = {
   user: user;
@@ -11,6 +12,13 @@ type Props = {
 
 const StackedBarChart = ({ user, barData }: Props) => {
   const navigate = useNavigate();
+  const targetRef = useRef(null);
+  const toolTipRef = useRef(null);
+  const { getElementProperty } =
+    useGetElementProperty<HTMLDivElement>(targetRef);
+  const getToolTipElementProperty =
+    useGetElementProperty<HTMLDivElement>(toolTipRef);
+
   const [data, setData] = useState<bar[]>([]);
   const [showToolTip, setShowToolTip] = useState<boolean>(false);
   const [showData, setShowData] = useState<bar>();
@@ -93,15 +101,24 @@ const StackedBarChart = ({ user, barData }: Props) => {
 
   // @ts-ignore
   const handleMousemove = function (e) {
-    //TODO:位置調整
-    seToolTipPos({ x: e.clientX, y: e.clientY - 50 });
+    const x = e.clientX - getElementProperty("x");
+    const tipW = getToolTipElementProperty.getElementProperty("width");
+    seToolTipPos({
+      x:
+        getElementProperty("width") / 2 > x
+          ? x + 30
+          : x - (tipW === 0 ? 120 : tipW) - 30,
+      y:
+        -getToolTipElementProperty.getElementProperty("height") / 2 +
+        getElementProperty("height") / 2,
+    });
   };
   const HandleMouseleave = function () {
     setShowToolTip(false);
   };
 
   return (
-    <div id="bar_chart" className="is-align-items-center">
+    <div id="bar_chart" className="is-align-items-center" ref={targetRef}>
       <svg viewBox={`${0} ${0} ${width} ${height}`}>
         {data.map((d) => {
           return (
@@ -129,7 +146,14 @@ const StackedBarChart = ({ user, barData }: Props) => {
         })}
       </svg>
       {showToolTip && (
-        <div id="tooltip" style={{ left: toolTipPos.x, top: -10 }}>
+        <div
+          id="tooltip"
+          style={{
+            left: toolTipPos.x,
+            top: toolTipPos.y,
+          }}
+          ref={toolTipRef}
+        >
           <div>{showData?.name}</div>
           <div>{showData?.seconds && convertTime(showData?.seconds)}</div>
         </div>
