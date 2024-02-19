@@ -11,7 +11,7 @@ function Header() {
             style={{ width: "fit-content" }}
             onClick={() => navigate("/")}
           >
-            header
+            Work Management
           </h1>
         </div>
       </div>

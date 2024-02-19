@@ -10,11 +10,11 @@ const DefaultIcon = ({ userName }: Props) => {
         <text
           x="25"
           y="25"
-          font-family="Verdana"
-          font-size="10"
+          fontFamily="Verdana"
+          fontSize="10"
           stroke="white"
-          dominant-baseline="middle"
-          text-anchor="middle"
+          dominantBaseline="middle"
+          textAnchor="middle"
         >
           {userName.slice(0, 8)}
         </text>

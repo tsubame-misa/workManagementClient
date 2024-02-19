@@ -68,7 +68,12 @@ function UserProjects() {
         <div>
           {sortedProject.map((v) => {
             return (
-              <div className="is-flex has-justify-content-cneter is-align-items-center pt-3 pb-3">
+              <div
+                className="is-flex has-justify-content-cneter is-align-items-center pt-3 pb-3"
+                key={v.id}
+                onClick={() => navigate(`/user/${user.id}/project/${v.id}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <div
                   className="is-flex has-justify-content-cneter"
                   style={{
@@ -91,11 +96,7 @@ function UserProjects() {
                 </div>
                 <div style={{ width: "100%" }}>
                   {v.works && (
-                    <div
-                      onClick={() =>
-                        navigate(`/user/${user.id}/project/${v.id}`)
-                      }
-                    >
+                    <div>
                       <StackedBarChart
                         user={user}
                         barData={convertBarData(v.works)}

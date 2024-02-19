@@ -9,12 +9,11 @@ function UserTrophy() {
   const data: userDict = useRecoilValue(userDictState);
 
   const user: user = data[userId].user;
-  // const projects: project[] = data[userId].projects;
 
   return (
     <div>
       <UserHeader user={user} selectedTab="trophy" />
-      <div>trophy</div>
+      <div className="is-flex is-justify-content-center p-5">comming soon</div>
     </div>
   );
 }
