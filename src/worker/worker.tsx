@@ -8,3 +8,9 @@ export function sum(args: number[]) {
     return sum + elm;
   }, 0);
 }
+
+export function getWorkSeoconds(start_time: string, end_time: string): number {
+  const start = new Date(start_time);
+  const end = new Date(end_time);
+  return end.getTime() / 1000 - start.getTime() / 1000;
+}

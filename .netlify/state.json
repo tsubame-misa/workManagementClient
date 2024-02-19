@@ -1,6 +1,7 @@
 {
 	"geolocation": {
 		"data": {
+			"city": "Minamiogikubo",
 			"country": {
 				"code": "JP",
 				"name": "Japan"
@@ -10,9 +11,9 @@
 				"name": "Tokyo"
 			},
 			"timezone": "Asia/Tokyo",
-			"latitude": 35.6887,
-			"longitude": 139.745
+			"latitude": 35.7008,
+			"longitude": 139.6248
 		},
-		"timestamp": 1708148872879
+		"timestamp": 1708357786057
 	}
 }

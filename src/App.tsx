@@ -18,7 +18,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/user/projects/:userId" element={<UserProjects />} />
               <Route path="/user/trophy/:userId" element={<UserTrophy />} />
-              <Route path="/project/:projectId" element={<Project />} />
+              <Route
+                path="/user/:userId/project/:projectId"
+                element={<Project />}
+              />
               {/* <Route path="*" element={ <Notfound /> } /> */}
             </Routes>
           </div>

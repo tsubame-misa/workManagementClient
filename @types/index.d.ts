@@ -24,7 +24,15 @@ type work = {
     id: number,
     start_time: string,
     end_time: string,
-    description:null,
+    description:string|null,
+}
+
+type showWork = {
+    id: number,
+    start_time: string,
+    end_time: string,
+    seconds: number,
+    description:string,
 }
 
 type userProject = {

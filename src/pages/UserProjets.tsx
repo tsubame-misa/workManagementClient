@@ -1,14 +1,13 @@
 import { useRecoilValue } from "recoil";
 import { userDictState } from "../atoms/user";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { convertTime, sum } from "../worker/worker";
 import UserHeader from "../components/UserHeader";
 import { useEffect, useState } from "react";
 import StackedBarChart from "../components/charts/StackedBarChart";
-import "./UserProject.css";
 
 function UserProjects() {
-  //   const [userProject, setUserProject] = useRecoilState<projectDict>(workState);
+  const navigate = useNavigate();
   const [sortedProject, setSortedProject] = useState<project[]>([]);
 
   const params = useParams();
@@ -37,13 +36,6 @@ function UserProjects() {
         })
         .sort((a, b) => b.total_seconds - a.total_seconds);
       setSortedProject(sortedNewProjects);
-
-      //   const projectDict = {};
-      //   for (let i = 0; i < sortedNewProjects.length; i++) {
-      //     const p = sortedNewProjects[i];
-      //     projectDict[p.id] = p;
-      //   }
-      //   setUserProject(projectDict);
     })();
   }, []);
 
@@ -81,6 +73,7 @@ function UserProjects() {
                   className="is-flex has-justify-content-cneter"
                   style={{
                     width: "120px",
+                    textAlign: "center",
                     display: "flex",
                     justifyContent: "center",
                   }}
@@ -98,10 +91,16 @@ function UserProjects() {
                 </div>
                 <div style={{ width: "100%" }}>
                   {v.works && (
-                    <StackedBarChart
-                      user={user}
-                      barData={convertBarData(v.works)}
-                    />
+                    <div
+                      onClick={() =>
+                        navigate(`/user/${user.id}/project/${v.id}`)
+                      }
+                    >
+                      <StackedBarChart
+                        user={user}
+                        barData={convertBarData(v.works)}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
