@@ -5,6 +5,7 @@ import { convertTime, sum } from "../worker/worker";
 import UserHeader from "../components/UserHeader";
 import { useEffect, useState } from "react";
 import StackedBarChart from "../components/charts/StackedBarChart";
+import "./UserProject.css";
 
 function UserProjects() {
   //   const [userProject, setUserProject] = useRecoilState<projectDict>(workState);
@@ -65,15 +66,36 @@ function UserProjects() {
   return (
     <div>
       <UserHeader user={user} selectedTab="projects" />
-
       <div>
-        <div>total time : {convertTime(totalTime)}</div>
+        <div className="is-flex is-justify-content-center p-5 is-size-4">
+          total time&ensp;
+          <span className="has-text-weight-bold" style={{ color: "#009688" }}>
+            {convertTime(totalTime)}
+          </span>
+        </div>
         <div>
           {sortedProject.map((v) => {
             return (
-              <div>
-                <div>{v.name}</div>
-                <div>{convertTime(v.total_seconds)}</div>
+              <div className="is-flex has-justify-content-cneter is-align-items-center pt-3 pb-3">
+                <div
+                  className="is-flex has-justify-content-cneter"
+                  style={{
+                    width: "120px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {v.name}
+                </div>
+                <div
+                  style={{
+                    width: "120px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {convertTime(v.total_seconds)}
+                </div>
                 <div style={{ width: "100%" }}>
                   {v.works && (
                     <StackedBarChart

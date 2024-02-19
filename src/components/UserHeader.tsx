@@ -14,7 +14,7 @@ const UserHeader = ({ user, selectedTab }: Props) => {
 
   return (
     <div>
-      <div className="user_header_info section pt-0">
+      <div className="user_header_info section pt-0 pb-2">
         <div style={{ width: "80px" }}>
           <UserIcon user={user} />
         </div>

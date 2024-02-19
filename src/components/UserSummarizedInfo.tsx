@@ -3,7 +3,6 @@ import StackedBarChart from "./charts/StackedBarChart";
 import { convertTime, sum } from "../worker/worker";
 import { useNavigate } from "react-router-dom";
 import "./UserSummarizedInfo.css";
-import DefaultIcon from "./DefaultIcon";
 import UserIcon from "./UserIcon";
 
 type Props = {
