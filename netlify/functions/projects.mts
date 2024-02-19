@@ -1,3 +1,4 @@
+ // @ts-ignore
 import { HandlerEvent } from "@netlify/functions";
 import { config } from "dotenv";
 

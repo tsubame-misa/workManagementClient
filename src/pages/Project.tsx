@@ -14,8 +14,8 @@ function Project() {
   const [works, setWorks] = useState<showWork[]>([]);
   const data: userDict = useRecoilValue(userDictState);
 
-  const user = data[userId].user;
-  const project = data[userId].projects.find(
+  const user = data[userId ?? ""].user;
+  const project = data[userId ?? ""].projects.find(
     (p: project) => p.id.toString() === projectId
   );
 

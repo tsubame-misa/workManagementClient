@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
 import { convertTime, sum } from "../../worker/worker";
@@ -45,9 +44,6 @@ const StackedBarChart = ({ user, barData }: Props) => {
     const filterdProjects = mergedData.filter(
       (p) => p.total_seconds > totalTime / 60
     );
-
-    // console.log("mergedData", mergedData, "filterdProjects", filterdProjects);
-
     const _data: bar[] = mergedData.map((p: barData, index) => {
       return {
         id: index,
@@ -72,12 +68,6 @@ const StackedBarChart = ({ user, barData }: Props) => {
 
     // その他で括りたい場合
     const remainData = _data.slice(0, filterdProjects.length);
-    // const _delete = _data.slice(
-    //   mergedData.length - filterdProjects.length,
-    //   mergedData.length
-    // );
-
-    // console.log("_delete", _delete);
     const otherTime = totalTime - sum(remainData.map((d) => d.seconds));
 
     remainData.push({
