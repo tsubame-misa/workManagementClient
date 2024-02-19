@@ -52,7 +52,7 @@ const StackedBarChart = ({ user, barData }: Props) => {
         y: 0,
         w: yScale(p.total_seconds),
         seconds: p.total_seconds,
-        color: colorScale(index),
+        color: colorScale(index.toString()),
         label: convertTime(p.total_seconds),
       };
     });

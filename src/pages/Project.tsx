@@ -57,12 +57,12 @@ function Project() {
           <div className="p-2" style={{ width: "70px" }}>
             <UserIcon user={user} />
           </div>
-          <div className="is-size-4">{project.name}</div>
+          <div className="is-size-4">{project?.name}</div>
         </div>
         <div className="is-flex is-justify-content-center pt-2 pb-5 is-size-4">
           total time&ensp;
           <span className="has-text-weight-bold" style={{ color: "#009688" }}>
-            {convertTime(project.total_seconds)}
+            {convertTime(project?.total_seconds ?? 0)}
           </span>
         </div>
       </div>
