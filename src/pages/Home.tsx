@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import UserSummarizedInfo from "../components/UserSummarizedInfo";
 import { useRecoilState } from "recoil";
 import { userDictState } from "../atoms/user";
+import { sum } from "../worker/worker";
 
 function Home() {
   const [userData, setUserData] = useRecoilState<userDict>(userDictState);
@@ -20,15 +21,21 @@ function Home() {
 
   return (
     <div>
-      {Object.values(userData).map((d) => {
-        return (
-          <UserSummarizedInfo
-            user={d.user}
-            projects={d.projects}
-            key={d.user.user_id}
-          />
-        );
-      })}
+      {Object.values(userData)
+        .sort(
+          (a, b) =>
+            sum(b.projects.map((p) => p.total_seconds)) -
+            sum(a.projects.map((p) => p.total_seconds))
+        )
+        .map((d) => {
+          return (
+            <UserSummarizedInfo
+              user={d.user}
+              projects={d.projects}
+              key={d.user.user_id}
+            />
+          );
+        })}
     </div>
   );
 }
