@@ -8,7 +8,7 @@ import StackedBarChart from "../components/charts/StackedBarChart";
 
 function UserProjects() {
   const navigate = useNavigate();
-  const [sortedProject, setSortedProject] = useState<project[]>([]);
+  const [sortedProject, setSortedProject] = useState<project[] | null>(null);
 
   const params = useParams();
   const userId = params.userId ? params.userId : "";
@@ -39,8 +39,6 @@ function UserProjects() {
     })();
   }, []);
 
-  console.log(sortedProject);
-
   const totalTime = sum(projects.map((p) => p.total_seconds));
 
   function convertBarData(works: work[]): barData[] {
@@ -59,54 +57,68 @@ function UserProjects() {
     <div>
       <UserHeader user={user} selectedTab="projects" />
       <div>
-        <div className="is-flex is-justify-content-center p-5 is-size-4">
-          total time&ensp;
-          <span className="has-text-weight-bold" style={{ color: "#009688" }}>
-            {convertTime(totalTime)}
-          </span>
-        </div>
+        {sortedProject && (
+          <div className="is-flex is-justify-content-center p-5 is-size-4">
+            total &ensp;
+            <span className="has-text-weight-bold" style={{ color: "#009688" }}>
+              {convertTime(totalTime)}
+            </span>
+          </div>
+        )}
         <div>
-          {sortedProject.map((v) => {
-            return (
-              <div
-                className="is-flex has-justify-content-cneter is-align-items-center pt-3 pb-3"
-                key={v.id}
-                onClick={() => navigate(`/user/${user.id}/project/${v.id}`)}
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  className="is-flex has-justify-content-cneter"
-                  style={{
-                    width: "120px",
-                    textAlign: "center",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  {v.name}
-                </div>
-                <div
-                  style={{
-                    width: "120px",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  {convertTime(v.total_seconds)}
-                </div>
-                <div style={{ width: "100%" }}>
-                  {v.works && (
-                    <div>
-                      <StackedBarChart
-                        user={user}
-                        barData={convertBarData(v.works)}
-                      />
-                    </div>
-                  )}
-                </div>
+          {!sortedProject ? (
+            <div className="is-flex is-flex-direction-column is-align-items-center p-5">
+              <div className="p-5">loading...</div>
+              <div style={{ width: "50vw" }}>
+                <progress
+                  className="progress is-small is-link"
+                  max="100"
+                ></progress>
               </div>
-            );
-          })}
+            </div>
+          ) : (
+            sortedProject.map((v) => {
+              return (
+                <div
+                  className="is-flex has-justify-content-cneter is-align-items-center pt-3 pb-3"
+                  key={v.id}
+                  onClick={() => navigate(`/user/${user.id}/project/${v.id}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div
+                    className="is-flex has-justify-content-cneter"
+                    style={{
+                      width: "120px",
+                      textAlign: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {v.name}
+                  </div>
+                  <div
+                    style={{
+                      width: "120px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {convertTime(v.total_seconds)}
+                  </div>
+                  <div style={{ width: "100%" }}>
+                    {v.works && (
+                      <div>
+                        <StackedBarChart
+                          user={user}
+                          barData={convertBarData(v.works)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     </div>

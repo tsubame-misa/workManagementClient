@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import Header from "./components/Header";
 import UserTrophy from "./pages/UserTrophy";
 import UserProjects from "./pages/UserProjets";
+import Notfound from "./pages/Notfound";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
                 path="/user/:userId/project/:projectId"
                 element={<Project />}
               />
-              {/* <Route path="*" element={ <Notfound /> } /> */}
+              <Route path="*" element={<Notfound />} />
             </Routes>
           </div>
         </section>

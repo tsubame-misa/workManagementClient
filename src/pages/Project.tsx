@@ -11,7 +11,7 @@ import {
 
 function Project() {
   const { userId, projectId } = useParams();
-  const [works, setWorks] = useState<showWork[]>([]);
+  const [works, setWorks] = useState<showWork[] | null>(null);
   const data: userDict = useRecoilValue(userDictState);
 
   const user = data[userId ?? ""].user;
@@ -54,47 +54,59 @@ function Project() {
     <div>
       <div>
         <div className="is-flex is-align-items-center is-justify-content-center">
-          <div className="p-2" style={{ width: "70px" }}>
+          <div className="p-1" style={{ width: "70px" }}>
             <UserIcon user={user} />
           </div>
-          <div className="is-size-4">{project?.name}</div>
+          <div className="is-size-3">{project?.name}</div>
         </div>
         <div className="is-flex is-justify-content-center pt-2 pb-5 is-size-4">
-          total time&ensp;
+          total &ensp;
           <span className="has-text-weight-bold" style={{ color: "#009688" }}>
             {convertTime(project?.total_seconds ?? 0)}
           </span>
         </div>
       </div>
-      <div className="is-flex is-justify-content-center">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th style={{ minWidth: "50vw" }}>Description</th>
-            </tr>
-          </thead>
-          {works.length > 10 && (
-            <tfoot>
+      {!works ? (
+        <div className="is-flex is-flex-direction-column is-align-items-center p-5">
+          <div className="p-5">loading...</div>
+          <div style={{ width: "50vw" }}>
+            <progress
+              className="progress is-small is-link"
+              max="100"
+            ></progress>
+          </div>
+        </div>
+      ) : (
+        <div className="is-flex is-justify-content-center">
+          <table className="table">
+            <thead>
               <tr>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Description</th>
+                <th style={{ minWidth: "50vw" }}>Description</th>
               </tr>
-            </tfoot>
-          )}
-          <tbody>
-            {works.map((w) => (
-              <tr key={w.id}>
-                <td> {convertDateString(w.start_time)} </td>
-                <td>{convertTime(w.seconds)}</td>
-                <td>{w.description} </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            {works.length > 10 && (
+              <tfoot>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Description</th>
+                </tr>
+              </tfoot>
+            )}
+            <tbody>
+              {works.map((w) => (
+                <tr key={w.id}>
+                  <td> {convertDateString(w.start_time)} </td>
+                  <td>{convertTime(w.seconds)}</td>
+                  <td>{w.description} </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
