@@ -12,7 +12,7 @@ function App() {
     <RecoilRoot>
       <BrowserRouter>
         <Header />
-        <section className="section">
+        <section className="p-5">
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />

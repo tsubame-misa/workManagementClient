@@ -96,8 +96,6 @@ const StackedBarChart = ({ user, barData }: Props) => {
     setData(remainData);
   }, [barData]);
 
-  console.log("data", data);
-
   const handleMouseover = function (d: bar) {
     setShowToolTip(true);
     setShowData(d);

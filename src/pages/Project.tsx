@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userDictState } from "../atoms/user";
 import UserIcon from "../components/UserIcon";
-import { convertTime, getWorkSeoconds } from "../worker/worker";
+import {
+  convertDateString,
+  convertTime,
+  getWorkSeoconds,
+} from "../worker/worker";
 
 function Project() {
   const { userId, projectId } = useParams();
@@ -49,25 +53,47 @@ function Project() {
   return (
     <div>
       <div>
-        <div className="is-flex is-align-items-center">
+        <div className="is-flex is-align-items-center is-justify-content-center">
           <div className="p-2" style={{ width: "70px" }}>
             <UserIcon user={user} />
           </div>
           <div className="is-size-4">{project.name}</div>
         </div>
-        <div className="is-flex is-justify-content-center pb-5 is-size-4">
+        <div className="is-flex is-justify-content-center pt-2 pb-5 is-size-4">
           total time&ensp;
           <span className="has-text-weight-bold" style={{ color: "#009688" }}>
             {convertTime(project.total_seconds)}
           </span>
         </div>
       </div>
-      <div>
-        {works.map((w) => (
-          <div key={w.id}>
-            {w.start_time} {w.description} {convertTime(w.seconds)}
-          </div>
-        ))}
+      <div className="is-flex is-justify-content-center">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th style={{ minWidth: "50vw" }}>Description</th>
+            </tr>
+          </thead>
+          {works.length > 10 && (
+            <tfoot>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+              </tr>
+            </tfoot>
+          )}
+          <tbody>
+            {works.map((w) => (
+              <tr key={w.id}>
+                <td> {convertDateString(w.start_time)} </td>
+                <td>{convertTime(w.seconds)}</td>
+                <td>{w.description} </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
